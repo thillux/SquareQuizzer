@@ -2,8 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#define SQUARE_X 4
-#define SQUARE_Y 4
+#define SQUARE_X 8
+#define SQUARE_Y 8
 
 namespace Ui {
 class MainWindow;

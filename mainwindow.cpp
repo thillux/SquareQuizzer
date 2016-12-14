@@ -4,8 +4,6 @@
 #include <QtWidgets>
 #include <QPointer>
 
-
-
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -92,8 +90,8 @@ void MainWindow::redraw()
     //qreal square_width=ui->graphicsView->scene()->width()/SQUARE_X;
     //qreal square_height=ui->graphicsView->scene()->height()/SQUARE_Y;
 
-    qreal square_width=ui->graphicsView->scene()->width()/SQUARE_X;
-    qreal square_height=ui->graphicsView->scene()->height()/SQUARE_Y;
+    qreal square_width= ui->graphicsView->scene()->width()/SQUARE_X;
+    qreal square_height= ui->graphicsView->scene()->height()/SQUARE_Y;
 
     for(int i=0;i<SQUARE_X;i++){
         for(int j=0;j<SQUARE_Y;j++){
@@ -101,7 +99,9 @@ void MainWindow::redraw()
                 int number = (i+1)+j*SQUARE_X; //Calculate current square number
 
                 //Add a square to our scene
-                ui->graphicsView->scene()->addRect(i*square_width,j*square_height,square_width,square_height,QPen(Qt::black),QBrush(Qt::black));
+                QPen myPen(Qt::red);
+                myPen.setWidth(2);
+                ui->graphicsView->scene()->addRect(i*square_width,j*square_height,square_width,square_height, myPen, QBrush(Qt::black));
                 QGraphicsItem * cur_rekt=new QGraphicsClickableRectItem(i*square_width,j*square_height,square_width,square_height,number);
 
                 ui->graphicsView->scene()->addItem(cur_rekt);
@@ -109,9 +109,9 @@ void MainWindow::redraw()
 
                 //Add a label to our square
                 QPointer<QGraphicsTextItem> io = new QGraphicsTextItem;
-                io->setPos((i*square_width+square_width/2)-50,(j*square_height+square_height/2)-50);
+                io->setPos((i*square_width+square_width/2)-20,(j*square_height+square_height/2)-20);
                 io->setPlainText(QString::number(number));
-                io->setScale(5.0);
+                io->setScale(2.0);
                 io->setDefaultTextColor(Qt::white);
                 ui->graphicsView->scene()->addItem(io);
             }
@@ -119,7 +119,7 @@ void MainWindow::redraw()
     }
     int points = (SQUARE_X*SQUARE_Y/2-(countUsedSquares()/2)*2) - countUsedMiddleSquares();
     points = points>0 ? points : 1;
-     ui->pointLabel->setText("Punkty:"+QString::number(points));
+     ui->pointLabel->setText("Punkte:"+QString::number(points));
     ui->graphicsView->show();
 }
 
@@ -179,6 +179,9 @@ void MainWindow::squareTurnOff(int number){
 
 void MainWindow::on_nextButton_clicked()
 {
+    if(filenames.empty())
+        return;
+
     constIterator = constIterator!=(filenames.constEnd()-1)   ? ++constIterator : filenames.constBegin();
     cur_image= QPixmap(*constIterator);
     ui->label->setText(*constIterator);
@@ -188,6 +191,9 @@ void MainWindow::on_nextButton_clicked()
 
 void MainWindow::on_previousButton_clicked()
 {
+    if(filenames.empty())
+        return;
+
     constIterator = constIterator!=(filenames.constBegin())   ? --constIterator : filenames.constEnd()-1;
     cur_image= QPixmap(*constIterator);
     ui->label->setText(*constIterator);
