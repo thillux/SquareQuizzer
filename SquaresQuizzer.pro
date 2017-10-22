@@ -4,20 +4,20 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
-QT       += printsupport
+QT += core gui
+QT += printsupport
+QT += widgets
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+CONFIG += c++14
 
 TARGET = SquaresQuizzer
 TEMPLATE = app
 
-
 SOURCES += main.cpp\
-        mainwindow.cpp \
-    qgraphicsclickablerectitem.cpp
+           mainwindow.cpp \
+           qgraphicsclickablerectitem.cpp
 
 HEADERS  += mainwindow.h \
-    qgraphicsclickablerectitem.h
+            qgraphicsclickablerectitem.h
 
 FORMS    += mainwindow.ui
