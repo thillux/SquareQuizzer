@@ -105,25 +105,6 @@ void MainWindow::redraw() {
   ui->graphicsView->show();
 }
 
-// This function activates when we press Return key, when focusted on lineEdit
-// panel.  It sets correct square boolean to false and redraws the whole
-// playground, making that square disappear.  Also clears the line edit, making it
-// easy to quickly disable squares.
-void MainWindow::on_lineEdit_returnPressed() {
-  int number = ui->lineEdit->text().toInt(); // number from lineEdit
-
-  if (number > 0 && number <= filenames.length()) { // If number is within
-                                                    // correct range, disable
-                                                    // correct square and redraw.
-    constIterator = filenames.begin() + (number - 1);
-    cur_image = QPixmap(*constIterator);
-    ui->label->setText(*constIterator);
-    squareReset(true);
-    redraw();
-  }
-  ui->lineEdit->clear(); // Clear lineEdit
-}
-
 // On window resize we need to redraw our whole playfield, so the image will be
 // visible.
 void MainWindow::resizeEvent(QResizeEvent *) { redraw(); }

@@ -26,7 +26,6 @@ private slots:
 
   void on_pushButton_clicked();
   void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
-  void on_lineEdit_returnPressed();
 
   void on_nextButton_clicked();
 
